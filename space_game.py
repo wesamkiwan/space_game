@@ -1,5 +1,7 @@
 import pygame
 import sys
+
+from pygame.constants import KEYDOWN
 from settings import Settings
 from ship import Ship
 
@@ -17,6 +19,11 @@ class SpaceGame:
             for event in pygame.event.get():
                 if event.type==pygame.QUIT:
                     sys.exit()
+                elif event.type==pygame.KEYDOWN:
+                    if event.key==pygame.K_RIGHT:
+                        self.ship.rect.x+=1
+                    elif event.key==pygame.K_LEFT:
+                        self.ship.rect.x-=1
             
             self.screen.fill(self.settings.bg_color)
             self.ship.draw_ship()
