@@ -6,6 +6,7 @@ from settings import Settings
 from ship import Ship
 
 
+
 class SpaceGame:
     def __init__(self):
         pygame.init()
@@ -18,38 +19,27 @@ class SpaceGame:
         while True:
             self.check_events()
             self.ship.update()
-            self.update_screen()
-            
-
+            self.update_screen()          
 
     def update_screen(self):
         self.screen.fill(self.settings.bg_color)
         self.ship.draw_ship()
-        pygame.display.flip()
-            
-            
-            
+        pygame.display.flip()                  
             
     def check_events(self):
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 sys.exit()
             elif event.type==pygame.KEYDOWN:
-                self._check_keydown_events(event)
-
-                
+                self._check_keydown_events(event)             
             elif event.type==pygame.KEYUP:
-                self._check_keyup_events(event)
-
-                
+                self._check_keyup_events(event)          
 
     def _check_keydown_events(self,event):
         if event.key==pygame.K_RIGHT:
             self.ship.moving_right=True
         elif event.key==pygame.K_LEFT:
             self.ship.moving_left=True
-
-            
 
     def _check_keyup_events(self, event):
         if event.key==pygame.K_RIGHT:
