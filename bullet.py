@@ -13,4 +13,13 @@ class Bullet(Sprite):
         self.rect.midtop=SpaceGame.ship.rect.midtop
 
         self.y=float(self.rect.y)
-        
+    
+
+    def update(self):
+        self.y-=self.settings.bullet_speed                     #change the bullet's y-coordination according to the bullet_speed (the origin point in pygame is the top left corner)
+        self.rect.y=self.y                                     #change the y position of bullet's rectangle
+
+
+    def draw_bullet(self):
+        pygame.draw.rect(self.screen, self.color, self.rect)
+
