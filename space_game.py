@@ -22,8 +22,15 @@ class SpaceGame:
         while True:
             self.check_events()
             self.ship.update()
+            self._update_bullets()
             self.update_screen()
-            self.bullets.update()          
+
+
+    def _update_bullets(self):
+        self.bullets.update()
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom<=0:
+                self.bullets.remove(bullet)
 
     def update_screen(self):
         self.screen.fill(self.settings.bg_color)
@@ -60,8 +67,9 @@ class SpaceGame:
             self.ship.moving_left=False
 
     def _fire_bullet(self):
-        new_bullet=Bullet(self)
-        self.bullets.add(new_bullet)
+        if len(self.bullets)<self.settings.max_bullets:
+            new_bullet=Bullet(self)
+            self.bullets.add(new_bullet)
 
 
             
