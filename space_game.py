@@ -6,6 +6,8 @@ from pygame.constants import KEYDOWN
 from settings import Settings
 from ship import Ship
 
+from enemy import Enemy
+
 
 
 class SpaceGame:
@@ -16,6 +18,8 @@ class SpaceGame:
         pygame.display.set_caption("Space Game")
         self.ship=Ship(self)
         self.bullets=pygame.sprite.Group()
+        self.enemies=pygame.sprite.Group()
+        self._create_fleet()
 
 
     def run_game(self):
@@ -37,9 +41,15 @@ class SpaceGame:
         self.ship.draw_ship()
         
         for bullet in self.bullets.sprites():
-            bullet.draw_bullet()                  
+            bullet.draw_bullet()
+
+        self.enemies.draw(self.screen)                  
 
         pygame.display.flip()
+
+    def _create_fleet(self):
+        enemy=Enemy(self)
+        self.enemies.add(enemy)
 
     def check_events(self):
         for event in pygame.event.get():
