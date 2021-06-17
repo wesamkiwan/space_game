@@ -49,7 +49,15 @@ class SpaceGame:
 
     def _create_fleet(self):
         enemy=Enemy(self)
-        self.enemies.add(enemy)
+        enemy_width=enemy.rect.width
+        available_space_x=self.settings.screen_width - (2*enemy_width)
+        number_enemies_x=available_space_x // (2*enemy_width)
+        for enemy_number in range(number_enemies_x):
+            enemy=Enemy(self)
+            enemy.x=enemy_width+2*enemy_width*enemy_number
+            enemy.rect.x=enemy.x
+
+            self.enemies.add(enemy)
 
     def check_events(self):
         for event in pygame.event.get():
