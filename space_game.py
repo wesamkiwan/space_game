@@ -53,10 +53,13 @@ class SpaceGame:
         available_space_x=self.settings.screen_width - (2*enemy_width)
         number_enemies_x=available_space_x // (2*enemy_width)
         for enemy_number in range(number_enemies_x):
+            self._create_enemy(enemy_number)
+
+    def _create_enemy(self, enemy_number):
             enemy=Enemy(self)
+            enemy_width=enemy.rect.width          
             enemy.x=enemy_width+2*enemy_width*enemy_number
             enemy.rect.x=enemy.x
-
             self.enemies.add(enemy)
 
     def check_events(self):
