@@ -27,7 +27,8 @@ class SpaceGame:
             self.check_events()
             self.ship.update()
             self._update_bullets()
-            self.update_screen()
+            self._update_enemy()
+            self._update_screen()
 
 
     def _update_bullets(self):
@@ -36,7 +37,10 @@ class SpaceGame:
             if bullet.rect.bottom<=0:
                 self.bullets.remove(bullet)
 
-    def update_screen(self):
+    def _update_enemy(self):
+        self.enemies.update()
+
+    def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
         self.ship.draw_ship()
         
