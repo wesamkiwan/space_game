@@ -38,6 +38,7 @@ class SpaceGame:
                 self.bullets.remove(bullet)
 
     def _update_enemy(self):
+        self._check_fleet_edges()
         self.enemies.update()
 
     def _update_screen(self):
@@ -70,6 +71,17 @@ class SpaceGame:
             enemy.rect.x=enemy.x
             enemy.rect.y=enemy.rect.height+(2*enemy.rect.height*row)
             self.enemies.add(enemy)
+
+    def _check_fleet_edges(self):
+        for enemy in self.enemies.sprites():
+            if enemy.check_edges():
+                self._change_fleet_direction()
+                break
+
+    def _change_fleet_direction(self):
+        for enemy in self.enemies.sprites():
+            enemy.rect.y+=self.settings.enemies_drop_speed
+        self.settings.fleet_direction*=-1
 
     def check_events(self):
         for event in pygame.event.get():
