@@ -36,6 +36,7 @@ class SpaceGame:
         for bullet in self.bullets.copy():
             if bullet.rect.bottom<=0:
                 self.bullets.remove(bullet)
+        collision=pygame.sprite.groupcollide(self.bullets,self.enemies,True,True)
 
     def _update_enemy(self):
         self._check_fleet_edges()
