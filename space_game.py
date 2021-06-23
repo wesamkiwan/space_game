@@ -45,6 +45,8 @@ class SpaceGame:
     def _update_enemy(self):
         self._check_fleet_edges()
         self.enemies.update()
+        if pygame.sprite.spritecollideany(self.ship, self.enemies):
+            print("Ship hit !!!")
 
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
