@@ -1,12 +1,14 @@
 import pygame
 import sys
-from bullet import Bullet
-
+from time import sleep
 from pygame.constants import KEYDOWN
+
+
+from bullet import Bullet
 from settings import Settings
 from ship import Ship
-
 from enemy import Enemy
+from game_stats import GameStats
 
 
 
@@ -16,6 +18,7 @@ class SpaceGame:
         self.settings=Settings()
         self.screen=pygame.display.set_mode((self.settings.screen_width , self.settings.screen_height))
         pygame.display.set_caption("Space Game")
+        self.stats=GameStats(self)
         self.ship=Ship(self)
         self.bullets=pygame.sprite.Group()
         self.enemies=pygame.sprite.Group()
@@ -120,7 +123,13 @@ class SpaceGame:
             new_bullet=Bullet(self)
             self.bullets.add(new_bullet)
 
-
+    def _ship_hit(self):
+        self.stats.ship_left-=1
+        self.enemies.empty()
+        self.bullets.empty()
+        self._create_enemy()
+        self.ship.center_ship()
+        sleep(0.5)
             
         
 if __name__=='__main__':
