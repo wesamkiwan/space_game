@@ -50,6 +50,7 @@ class SpaceGame:
         self.enemies.update()
         if pygame.sprite.spritecollideany(self.ship, self.enemies):
             self._ship_hit()
+        self._chick_enemies_bottoms()
 
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
@@ -130,7 +131,13 @@ class SpaceGame:
         self._create_enemy()
         self.ship.center_ship()
         sleep(0.5)
-            
+    
+    def _check_enemy_bottom(self):
+        screen_rect=self.screen.get_rect()
+        for enemy in self.enemies.sprites():
+            if enemy.rect.bottom >= self.screen.rect.bottom:
+                self._ship_hit()
+                break
         
 if __name__=='__main__':
     sg=SpaceGame()
