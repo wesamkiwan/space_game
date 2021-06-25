@@ -51,7 +51,7 @@ class SpaceGame:
         self.enemies.update()
         if pygame.sprite.spritecollideany(self.ship, self.enemies):
             self._ship_hit()
-        self._chick_enemies_bottoms()
+        self._check_enemies_bottom()
 
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
@@ -126,7 +126,7 @@ class SpaceGame:
             self.bullets.add(new_bullet)
 
     def _ship_hit(self):
-        if self.stats.ship_left >0 :
+        if self.stats.ships_left >0 :
             self.stats.ship_left-=1
             self.enemies.empty()
             self.bullets.empty()
@@ -136,10 +136,10 @@ class SpaceGame:
         else:
             self.stats.game_active=False
     
-    def _check_enemy_bottom(self):
+    def _check_enemies_bottom(self):
         screen_rect=self.screen.get_rect()
         for enemy in self.enemies.sprites():
-            if enemy.rect.bottom >= self.screen.rect.bottom:
+            if enemy.rect.bottom >= screen_rect.bottom:
                 self._ship_hit()
                 break
         
