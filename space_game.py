@@ -28,9 +28,10 @@ class SpaceGame:
     def run_game(self):
         while True:
             self.check_events()
-            self.ship.update()
-            self._update_bullets()
-            self._update_enemy()
+            if self.stats.game_active:
+                self.ship.update()
+                self._update_bullets()
+                self._update_enemy()
             self._update_screen()
 
 
@@ -125,12 +126,15 @@ class SpaceGame:
             self.bullets.add(new_bullet)
 
     def _ship_hit(self):
-        self.stats.ship_left-=1
-        self.enemies.empty()
-        self.bullets.empty()
-        self._create_enemy()
-        self.ship.center_ship()
-        sleep(0.5)
+        if self.stats.ship_left >0 :
+            self.stats.ship_left-=1
+            self.enemies.empty()
+            self.bullets.empty()
+            self._create_enemy()
+            self.ship.center_ship()
+            sleep(0.5)
+        else:
+            self.stats.game_active=False
     
     def _check_enemy_bottom(self):
         screen_rect=self.screen.get_rect()
