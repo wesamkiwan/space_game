@@ -9,6 +9,7 @@ from settings import Settings
 from ship import Ship
 from enemy import Enemy
 from game_stats import GameStats
+from button import Button
 
 
 
@@ -23,6 +24,7 @@ class SpaceGame:
         self.bullets=pygame.sprite.Group()
         self.enemies=pygame.sprite.Group()
         self._create_fleet()
+        self.play_button=Button(self, "PLAY")
 
 
     def run_game(self):
@@ -60,7 +62,10 @@ class SpaceGame:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
 
-        self.enemies.draw(self.screen)                  
+        self.enemies.draw(self.screen)
+
+        if not self.stats.game_active:
+            self.play_button.draw_button()                  
 
         pygame.display.flip()
 
@@ -102,7 +107,15 @@ class SpaceGame:
             elif event.type==pygame.KEYDOWN:
                 self._check_keydown_events(event)             
             elif event.type==pygame.KEYUP:
-                self._check_keyup_events(event)          
+                self._check_keyup_events(event) 
+            elif event.type==pygame.MOUSEBUTTONDOWN:
+                mouse_pos=pygame.mouse.get_pos()
+                self._check_play_button(mouse_pos)
+
+    def _check_play_button(self, mouse_pos):
+        if self.play_button.rect.collidepoint(mouse_pos):
+            self.stats.game_active=True
+
 
     def _check_keydown_events(self,event):
         if event.key==pygame.K_RIGHT:
