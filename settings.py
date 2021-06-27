@@ -9,7 +9,7 @@ class Settings:
         self.bg_color=(0,0,0)
         #ship settings
         self.ship_speed=5
-        self.ship_limit=3
+        self.ship_limit=2
         #bullet settings
         self.bullet_color=(255,88,4)
         self.bullet_height=15
@@ -17,7 +17,7 @@ class Settings:
         self.bullet_speed=4.0
         self.max_bullets=6
         #enemies settings
-        self.enemy_speed=1.0
+        self.enemy_speed=10.0
         self.enemies_drop_speed=10
         self.fleet_direction=1    #1 means right and -1 means left
         
